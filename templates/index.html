@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pothole Detection AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Pothole Detection System</h1>
+        
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" required accept="image/*" capture="environment">
+            <button type="submit">Upload & Detect</button>
+        </form>
+        {% if session['email'] %}
+         <p>Logged in as: {{ session['email'] }} | <a href="{{ url_for('logout') }}">Logout</a></p>
+        {% endif %}
+
+
+        {% if detection_message %}
+        <h2>{{ detection_message }}</h2>  <!-- Show detection status -->
+        {% endif %}
+
+        {% if detected_path %}
+        <div class="image-container">
+            <div>
+                <h3>Processed Image</h3>
+                <img src="{{ detected_path }}" alt="Detected Image">
+            </div>
+        </div>
+        {% endif %}
+
+        {% if report_path %}
+        <a href="{{ report_path }}" download>
+            <button>Download Report</button>
+        </a>
+        {% endif %}
+    </div>
+    
+</body>
+</html>
